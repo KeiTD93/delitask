@@ -13,7 +13,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/countOrder")
+    @GetMapping("/countOrder")
     public ResponseEntity<?> countOrder(@RequestHeader(value = "username") String username) {
         return ResponseEntity.ok(orderService.countOrder(username));
     }
