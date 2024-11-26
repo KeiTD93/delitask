@@ -28,6 +28,7 @@ public class UserController {
                                    @RequestHeader(value = "password") String password) {
         return ResponseEntity.ok(userService.isValidUser(username, password));
     }
+
     @GetMapping("/checkRoleType")
     public ResponseEntity<?> checkRoleType(@RequestHeader(value = "username") String username) {
         return ResponseEntity.ok(userService.checkRoleType(username));

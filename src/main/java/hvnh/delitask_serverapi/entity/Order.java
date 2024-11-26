@@ -25,6 +25,17 @@ public class Order {
 
     @Column
     private int cleaner_id;
+    @Column
+    private String name_customer;
+
+    @Column
+    private String phone_customer;
+
+    @Column
+    private String home_type;
+
+    @Column
+    private String address;
 
     @Column
     private String service_type;
