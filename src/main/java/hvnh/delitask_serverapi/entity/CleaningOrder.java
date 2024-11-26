@@ -46,6 +46,6 @@ public class CleaningOrder {
     @Column(name = "has_tool")
     private Boolean hasTool;
 
-    @Column(name = "has_animal")
+    @Column(name = "has_animals")
     private Boolean hasAnimal;
 }
