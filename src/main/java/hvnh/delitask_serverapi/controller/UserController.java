@@ -14,8 +14,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private OrderService orderService;
 
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
