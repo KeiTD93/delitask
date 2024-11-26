@@ -37,7 +37,7 @@ public class CleaningOrder {
     @Column
     private String note;
 
-    @Column(name = "is_cleaning_order")
+    @Column(name = "is_cleaning_other")
     private Boolean isCleaningOther;
 
     @Column(name = "is_cook")
