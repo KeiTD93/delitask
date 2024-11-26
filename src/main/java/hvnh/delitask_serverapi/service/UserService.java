@@ -22,8 +22,13 @@ public class UserService {
                 .build());
     }
 
-    public boolean isValidUser(String username, String password) {
-        return usersCRUD.countByUsernameAndPassword(username, password) > 0;
+    public String isValidUser(String username, String password) {
+        boolean check = usersCRUD.countByUsernameAndPassword(username, password) > 0;
+        if (check) {
+            return usersCRUD.findByUsername(username).getRole_type();
+        }
+        else
+            return "Invalid username or password";
     }
 
     public String checkRoleType(String username){
