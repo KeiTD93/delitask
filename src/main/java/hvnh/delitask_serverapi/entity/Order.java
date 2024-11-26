@@ -54,7 +54,7 @@ public class Order {
     private int rating;
 
     @Column
-    private int old_order_id;
+    private Integer old_order_id;
 
     @Column
     private Date feedback_date;
