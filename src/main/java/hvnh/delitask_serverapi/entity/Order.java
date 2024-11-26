@@ -51,7 +51,7 @@ public class Order {
     private String feedback;
 
     @Column
-    private int rating;
+    private Integer rating;
 
     @Column
     private Integer old_order_id;
