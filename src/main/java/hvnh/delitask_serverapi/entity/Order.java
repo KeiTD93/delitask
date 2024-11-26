@@ -57,11 +57,4 @@ public class Order {
 
     @Column
     private Date feedback_date;
-
-    @Column
-    private boolean has_tool;
-
-    @Column
-    private boolean has_animals;
-
 }
