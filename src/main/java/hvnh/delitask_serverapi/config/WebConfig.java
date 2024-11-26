@@ -17,7 +17,7 @@ public class WebConfig {
                         .allowedOrigins("*") // Cho phép các domain này
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Phương thức HTTP được phép
                         .allowedHeaders("*") // Cho phép tất cả các header
-                        .allowCredentials(true); // Cho phép gửi cookie hoặc thông tin xác thực
+                        .allowCredentials(false); // Cho phép gửi cookie hoặc thông tin xác thực
             }
         };
     }
