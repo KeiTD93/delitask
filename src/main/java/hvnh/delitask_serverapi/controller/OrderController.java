@@ -25,7 +25,6 @@ public class OrderController {
     @PostMapping("/addOrder")
     public ResponseEntity<?> addOrder(@RequestBody OrderDto orderDto) {
         int orderId = orderService.addOrder(orderDto);
-        orderService.addCleaningOrder(orderDto, orderId);
         return ResponseEntity.ok(orderId);
     }
 }

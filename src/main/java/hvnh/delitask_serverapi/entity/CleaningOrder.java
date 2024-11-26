@@ -48,4 +48,7 @@ public class CleaningOrder {
 
     @Column(name = "has_animals")
     private Boolean hasAnimal;
+
+    @Column(name = "service_cleaning_hour_id")
+    private int serviceCleaningHourId;
 }

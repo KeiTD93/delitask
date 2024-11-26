@@ -22,7 +22,7 @@ public class OrderService {
     @Autowired
     CleaningOrderCRUD cleaningOrderCRUD;
 
-    public int countOrder(String username){
+    public int countOrder(String username) {
         return orderCRUD.countByCustomerId(usersCRUD.findByUsername(username).getId());
     }
 
@@ -32,31 +32,31 @@ public class OrderService {
 
     public int addOrder(OrderDto orderDto) {
         Order order = orderCRUD.saveAndFlush(Order.builder()
-                        .customerId(orderDto.getCustomerId())
-                        .cleaner_id(null)
-                        .old_order_id(null)
-                        .name_customer(orderDto.getNameCustomer())
-                        .phone_customer(orderDto.getPhoneCustomer())
-                        .home_type(orderDto.getHomeType())
-                        .address(orderDto.getAddress())
-                        .service_type(orderDto.getServiceType())
-                        .status("PENDING")
-                        .pay_status(orderDto.getPayStatus())
+                .customerId(orderDto.getCustomerId())
+                .cleaner_id(null)
+                .old_order_id(null)
+                .name_customer(orderDto.getNameCustomer())
+                .phone_customer(orderDto.getPhoneCustomer())
+                .home_type(orderDto.getHomeType())
+                .address(orderDto.getAddress())
+                .service_type(orderDto.getServiceType())
+                .status("PENDING")
+                .pay_status(orderDto.getPayStatus())
                 .build());
-        return order.getId();
-    }
 
-    public void addCleaningOrder (OrderDto orderDto, int orderId) {
         cleaningOrderCRUD.saveAndFlush(CleaningOrder.builder()
-                        .orderId(orderId)
-                        .totalPrice(Integer.parseInt(orderDto.getTotalPrice()))
-                        .status("PENDING")
-                        .startTime(orderDto.getStartTime())
-                        .note(orderDto.getNote())
-                        .isCleaningOther(orderDto.isCleaningOther())
-                        .isCook(orderDto.isCook())
-                        .hasAnimal(orderDto.isHasAnimal())
-                        .hasTool(orderDto.isHasTool())
+                .orderId(order.getId())
+                .totalPrice(Integer.parseInt(orderDto.getTotalPrice()))
+                .status("PENDING")
+                .startTime(orderDto.getStartTime())
+                .note(orderDto.getNote())
+                .isCleaningOther(orderDto.isCleaningOther())
+                .isCook(orderDto.isCook())
+                .hasAnimal(orderDto.isHasAnimal())
+                .hasTool(orderDto.isHasTool())
+                .serviceCleaningHourId(serviceCleaningHourCRUD.findByHour(orderDto.getServiceCleaningHour()).getId())
                 .build());
+
+        return order.getId();
     }
 }

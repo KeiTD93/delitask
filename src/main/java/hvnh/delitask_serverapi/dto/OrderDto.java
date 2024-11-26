@@ -24,5 +24,5 @@ public class OrderDto {
     private String totalPrice;
     private LocalDateTime startTime;
     private String note;
-
+    private int serviceCleaningHour;
 }

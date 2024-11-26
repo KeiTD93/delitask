@@ -18,7 +18,10 @@ public class ServiceCleaningHour {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column
     private int hour;
-
+    @Column
     private int price;
+    @Column
+    private String name;
 }
