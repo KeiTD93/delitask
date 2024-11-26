@@ -10,6 +10,8 @@ import hvnh.delitask_serverapi.repository.UsersCRUD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -33,7 +35,7 @@ public class OrderService {
     public int addOrder(OrderDto orderDto) {
         Order order = orderCRUD.saveAndFlush(Order.builder()
                 .customerId(orderDto.getCustomerId())
-                .cleaner_id(null)
+                .cleanerId(null)
                 .old_order_id(null)
                 .name_customer(orderDto.getNameCustomer())
                 .phone_customer(orderDto.getPhoneCustomer())
@@ -56,7 +58,10 @@ public class OrderService {
                 .hasTool(orderDto.isHasTool())
                 .serviceCleaningHourId(serviceCleaningHourCRUD.findByHour(orderDto.getServiceCleaningHour()).getId())
                 .build());
-
         return order.getId();
+    }
+
+    public List<Order> getListJob(){
+        return orderCRUD.findByCleanerId(null);
     }
 }

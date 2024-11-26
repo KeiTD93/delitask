@@ -27,4 +27,9 @@ public class OrderController {
         int orderId = orderService.addOrder(orderDto);
         return ResponseEntity.ok(orderId);
     }
+
+    @GetMapping("/getListJob")
+    public ResponseEntity<?> getListJob() {
+        return ResponseEntity.ok(orderService.getListJob());
+    }
 }

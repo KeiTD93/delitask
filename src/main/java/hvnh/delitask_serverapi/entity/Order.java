@@ -23,8 +23,8 @@ public class Order {
     @Column(name = "customer_id")
     private int customerId;
 
-    @Column
-    private Integer cleaner_id;
+    @Column (name = "cleaner_id")
+    private Integer cleanerId;
 
     @Column
     private String name_customer;
