@@ -24,7 +24,8 @@ public class Order {
     private int customerId;
 
     @Column
-    private int cleaner_id;
+    private Integer cleaner_id;
+
     @Column
     private String name_customer;
 

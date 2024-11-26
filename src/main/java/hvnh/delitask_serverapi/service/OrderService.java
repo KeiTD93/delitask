@@ -33,6 +33,7 @@ public class OrderService {
     public int addOrder(OrderDto orderDto) {
         Order order = orderCRUD.saveAndFlush(Order.builder()
                         .customerId(orderDto.getCustomerId())
+                        .cleaner_id(null)
                         .name_customer(orderDto.getNameCustomer())
                         .phone_customer(orderDto.getPhoneCustomer())
                         .home_type(orderDto.getHomeType())
