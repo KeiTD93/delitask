@@ -10,4 +10,6 @@ public interface OrderCRUD extends JpaRepository<Order, Integer> {
     int countByCustomerId(int customerId);
     List<Order> findByCleanerId(Integer cleanerId);
 
+    Order findById(int id);
+
 }

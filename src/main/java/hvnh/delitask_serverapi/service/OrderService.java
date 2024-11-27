@@ -80,4 +80,15 @@ public class OrderService {
         }
         return cleaningOrders;
     }
+
+    public String apply(int cleanId, int orderId){
+        Order order = orderCRUD.findById(orderId);
+        if (order.getCleanerId() == null){
+            order.setCleanerId(cleanId);
+            orderCRUD.saveAndFlush(order);
+            return "OK";
+        }
+        else
+            return "ERROR";
+    }
 }

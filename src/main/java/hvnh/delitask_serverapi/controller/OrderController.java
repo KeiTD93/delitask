@@ -32,4 +32,9 @@ public class OrderController {
     public ResponseEntity<?> getListCleanJob() {
         return ResponseEntity.ok(orderService.getListCleaningOrder());
     }
+
+    @GetMapping("/apply")
+    public ResponseEntity<?> apply(@RequestHeader(value = "cleanerId") int cleanerId, @RequestHeader(value = "orderId") int orderId) {
+        return ResponseEntity.ok(orderService.apply(cleanerId, orderId));
+    }
 }
