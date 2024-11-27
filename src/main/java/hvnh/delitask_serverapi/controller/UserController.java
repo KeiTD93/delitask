@@ -32,4 +32,12 @@ public class UserController {
         return ResponseEntity.ok(userService.checkRoleType(username));
     }
 
+    @GetMapping("/checkAccountAvaiable")
+    public ResponseEntity<?> checkAccountAvaiable(@RequestHeader(value = "username") String username,
+                                                  @RequestHeader(value = "email") String email,
+                                                  @RequestHeader(value = "phone") String phone)
+
+    {
+        return ResponseEntity.ok(userService.checkAccountAvaiable(username, email, phone));
+    }
 }

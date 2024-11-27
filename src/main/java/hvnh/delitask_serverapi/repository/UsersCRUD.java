@@ -9,4 +9,6 @@ public interface UsersCRUD extends CrudRepository<User, Integer> {
     int countByUsernameAndPassword(String username, String password);
 
     User findByUsername(String username);
+
+    int countByUsernameOrEmailOrPhoneNumber(String username, String email, String phoneNumber);
 }

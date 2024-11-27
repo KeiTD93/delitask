@@ -41,8 +41,8 @@ public class User {
     @Column
     private String password;
 
-    @Column
-    private String phone_number;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @Column
     private String remember_token;

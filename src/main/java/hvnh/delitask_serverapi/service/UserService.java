@@ -19,6 +19,7 @@ public class UserService {
                 .username(userDto.getUsername())
                 .role_type("customer")
                 .password(userDto.getPassword())
+                .phoneNumber(userDto.getPhone())
                 .build());
     }
 
@@ -26,12 +27,15 @@ public class UserService {
         boolean check = usersCRUD.countByUsernameAndPassword(username, password) > 0;
         if (check) {
             return usersCRUD.findByUsername(username).getRole_type();
-        }
-        else
+        } else
             return "Invalid username or password";
     }
 
-    public String checkRoleType(String username){
+    public String checkRoleType(String username) {
         return usersCRUD.findByUsername(username).getRole_type();
+    }
+
+    public boolean checkAccountAvaiable(String username, String email, String phone) {
+        return !(usersCRUD.countByUsernameOrEmailOrPhoneNumber(username, email, phone) > 0);
     }
 }
