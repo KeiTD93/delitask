@@ -15,7 +15,7 @@ public class UserService {
     public User addUser(UserDto userDto) {
         return usersCRUD.save(User.builder()
                 .email(userDto.getEmail())
-                .name(userDto.getName())
+                .name("default")
                 .username(userDto.getUsername())
                 .role_type("customer")
                 .password(userDto.getPassword())
