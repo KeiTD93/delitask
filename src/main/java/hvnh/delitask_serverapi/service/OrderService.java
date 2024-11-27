@@ -72,8 +72,11 @@ public class OrderService {
         List<CleaningOrder> cleaningOrders = new ArrayList<>();
         for (Order order : orders) {
             Optional<CleaningOrder> cleaningOrderOptional = cleaningOrderCRUD.findByOrderIdAndStatus(order.getId(),"pending");
-            if (cleaningOrderOptional.isPresent()) {}
+            System.out.println(cleaningOrderOptional.isPresent());
+            System.out.println(order.getId());
+            if (cleaningOrderOptional.isPresent()) {
             cleaningOrders.add(cleaningOrderOptional.get());
+                }
         }
         return cleaningOrders;
     }
