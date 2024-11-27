@@ -28,8 +28,8 @@ public class OrderController {
         return ResponseEntity.ok(orderId);
     }
 
-    @GetMapping("/getListJob")
-    public ResponseEntity<?> getListJob() {
-        return ResponseEntity.ok(orderService.getListJob());
+    @GetMapping("/getListCleanJob")
+    public ResponseEntity<?> getListCleanJob() {
+        return ResponseEntity.ok(orderService.getListCleaningOrder());
     }
 }

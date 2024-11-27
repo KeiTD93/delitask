@@ -10,7 +10,9 @@ import hvnh.delitask_serverapi.repository.UsersCRUD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -63,5 +65,16 @@ public class OrderService {
 
     public List<Order> getListJob(){
         return orderCRUD.findByCleanerId(null);
+    }
+
+    public List<CleaningOrder> getListCleaningOrder(){
+        List<Order> orders = orderCRUD.findByCleanerId(null);
+        List<CleaningOrder> cleaningOrders = new ArrayList<>();
+        for (Order order : orders) {
+            Optional<CleaningOrder> cleaningOrderOptional = cleaningOrderCRUD.findByOrderIdAndStatus(order.getId(),"pending");
+            if (cleaningOrderOptional.isPresent()) {}
+            cleaningOrders.add(cleaningOrderOptional.get());
+        }
+        return cleaningOrders;
     }
 }
