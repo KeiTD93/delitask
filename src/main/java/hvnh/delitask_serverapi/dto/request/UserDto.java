@@ -1,7 +1,6 @@
-package hvnh.delitask_serverapi.dto;
+package hvnh.delitask_serverapi.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

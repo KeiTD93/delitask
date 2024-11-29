@@ -1,6 +1,6 @@
 package hvnh.delitask_serverapi.controller;
 
-import hvnh.delitask_serverapi.dto.OrderDto;
+import hvnh.delitask_serverapi.dto.request.OrderDto;
 import hvnh.delitask_serverapi.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,4 +37,10 @@ public class OrderController {
     public ResponseEntity<?> apply(@RequestHeader(value = "cleanerId") int cleanerId, @RequestHeader(value = "orderId") int orderId) {
         return ResponseEntity.ok(orderService.apply(cleanerId, orderId));
     }
+
+    @GetMapping("/findWaittingOrders")
+    public ResponseEntity<?> findWaittingOrders(@RequestHeader(value = "username") String username) {
+        return ResponseEntity.ok(orderService.findWaittingCleaningOrders(username));
+    }
+
 }

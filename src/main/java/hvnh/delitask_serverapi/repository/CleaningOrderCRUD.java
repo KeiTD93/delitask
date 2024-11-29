@@ -12,4 +12,6 @@ public interface CleaningOrderCRUD extends JpaRepository<CleaningOrder, Integer>
     Optional<CleaningOrder> findByOrderIdAndStatus(int orderId, String status);
 
     Optional<CleaningOrder> findByOrderId(int orderId);
+
+    List<CleaningOrder> findByStatus(String status);
 }

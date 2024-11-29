@@ -1,6 +1,6 @@
 package hvnh.delitask_serverapi.service;
 
-import hvnh.delitask_serverapi.dto.UserDto;
+import hvnh.delitask_serverapi.dto.request.UserDto;
 import hvnh.delitask_serverapi.entity.User;
 import hvnh.delitask_serverapi.repository.UsersCRUD;
 import org.springframework.beans.factory.annotation.Autowired;

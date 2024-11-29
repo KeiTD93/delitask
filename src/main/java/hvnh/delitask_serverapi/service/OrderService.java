@@ -1,6 +1,7 @@
 package hvnh.delitask_serverapi.service;
 
-import hvnh.delitask_serverapi.dto.OrderDto;
+import hvnh.delitask_serverapi.dto.request.OrderDto;
+import hvnh.delitask_serverapi.dto.response.OrderDetailDto;
 import hvnh.delitask_serverapi.entity.CleaningOrder;
 import hvnh.delitask_serverapi.entity.Order;
 import hvnh.delitask_serverapi.repository.CleaningOrderCRUD;
@@ -63,32 +64,56 @@ public class OrderService {
         return order.getId();
     }
 
-    public List<Order> getListJob(){
-        return orderCRUD.findByCleanerId(null);
-    }
-
-    public List<CleaningOrder> getListCleaningOrder(){
+    public List<CleaningOrder> getListCleaningOrder() {
         List<Order> orders = orderCRUD.findByCleanerId(null);
         List<CleaningOrder> cleaningOrders = new ArrayList<>();
         for (Order order : orders) {
-            Optional<CleaningOrder> cleaningOrderOptional = cleaningOrderCRUD.findByOrderIdAndStatus(order.getId(),"pending");
+            Optional<CleaningOrder> cleaningOrderOptional = cleaningOrderCRUD.findByOrderIdAndStatus(order.getId(), "pending");
             System.out.println(cleaningOrderOptional.isPresent());
             System.out.println(order.getId());
             if (cleaningOrderOptional.isPresent()) {
-            cleaningOrders.add(cleaningOrderOptional.get());
-                }
+                cleaningOrders.add(cleaningOrderOptional.get());
+            }
         }
         return cleaningOrders;
     }
 
-    public String apply(int cleanId, int orderId){
+    public String apply(int cleanId, int orderId) {
         Order order = orderCRUD.findById(orderId);
-        if (order.getCleanerId() == null){
+        if (order.getCleanerId() == null) {
             order.setCleanerId(cleanId);
             orderCRUD.saveAndFlush(order);
             return "OK";
-        }
-        else
+        } else
             return "ERROR";
+    }
+
+    public List<OrderDetailDto> findWaittingCleaningOrders(String username) {
+
+        List<OrderDetailDto> orderDetailDtos = new ArrayList<>();
+        Optional<CleaningOrder> cleaningOrder;
+        int userId = usersCRUD.findByUsername(username).getId();
+        List<Order> orders = orderCRUD.findByCustomerId(userId);
+        for (Order order : orders) {
+            cleaningOrder = cleaningOrderCRUD.findByOrderId(order.getId());
+            if (cleaningOrder.isPresent()) {
+                orderDetailDtos.add(OrderDetailDto.builder()
+                        .orderId(orders.get(0).getId())
+                        .totalPrice(cleaningOrder.get().getTotalPrice())
+                        .deposit(cleaningOrder.get().getDeposit())
+                        .status(order.getStatus())
+                        .startTime(cleaningOrder.get().getStartTime())
+                        .note(cleaningOrder.get().getNote())
+                        .isCleaningOther(cleaningOrder.get().getIsCleaningOther())
+                        .isCook(cleaningOrder.get().getIsCook())
+                        .hasAnimal(cleaningOrder.get().getHasAnimal())
+                        .hasTool(cleaningOrder.get().getHasTool())
+                        .serviceCleaningHourId(cleaningOrder.get().getServiceCleaningHourId())
+                        .address(order.getAddress())
+                        .build());
+            }
+        }
+
+        return orderDetailDtos;
     }
 }

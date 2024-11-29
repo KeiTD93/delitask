@@ -12,4 +12,5 @@ public interface OrderCRUD extends JpaRepository<Order, Integer> {
 
     Order findById(int id);
 
+    List<Order> findByCustomerId(int customerId);
 }
