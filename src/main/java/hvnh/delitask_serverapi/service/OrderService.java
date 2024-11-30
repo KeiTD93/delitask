@@ -37,8 +37,9 @@ public class OrderService {
     }
 
     public int addOrder(OrderDto orderDto) {
+        User user = usersCRUD.findByUsername(orderDto.getCustomerId());
         Order order = orderCRUD.saveAndFlush(Order.builder()
-                .customerId(orderDto.getCustomerId())
+                .customerId(user.getId())
                 .cleanerId(null)
                 .old_order_id(null)
                 .name_customer(orderDto.getNameCustomer())

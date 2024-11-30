@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class OrderDto {
-    private int customerId;
+    private String customerId;
     private String nameCustomer;
     private String phoneCustomer;
     private String homeType;
