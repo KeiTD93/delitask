@@ -12,8 +12,8 @@ public class UserService {
     @Autowired
     UsersCRUD usersCRUD;
 
-    public User addUser(UserDto userDto) {
-        return usersCRUD.save(User.builder()
+    public void addUser(UserDto userDto) {
+        usersCRUD.saveAndFlush(User.builder()
                 .email(userDto.getEmail())
                 .name("default")
                 .username(userDto.getUsername())

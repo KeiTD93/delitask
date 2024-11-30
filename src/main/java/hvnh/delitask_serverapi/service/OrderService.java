@@ -70,28 +70,55 @@ public class OrderService {
         User user = usersCRUD.findByUsername(username);
         Optional<Cleaner> cleanerOpt = cleanerCRUD.findByUserId(user.getId());
         List<Order> orders = orderCRUD.findByCleanerId(cleanerOpt.get().getId());
-        List<CleaningOrder> cleaningOrders = new ArrayList<>();
+        List<OrderDetailDto> orderDetailDtoList = new ArrayList<>();
         for (Order order : orders) {
             Optional<CleaningOrder> cleaningOrderOptional = cleaningOrderCRUD.findByOrderIdAndStatus(order.getId(), "pending");
             if (cleaningOrderOptional.isPresent()) {
-                cleaningOrders.add(cleaningOrderOptional.get());
-            }
+                orderDetailDtoList.add(OrderDetailDto.builder()
+                        .orderId(order.getId())
+                        .totalPrice(cleaningOrderOptional.get().getTotalPrice())
+                        .deposit(cleaningOrderOptional.get().getDeposit())
+                        .status(order.getStatus())
+                        .startTime(cleaningOrderOptional.get().getStartTime())
+                        .note(cleaningOrderOptional.get().getNote())
+                        .isCleaningOther(cleaningOrderOptional.get().getIsCleaningOther())
+                        .isCook(cleaningOrderOptional.get().getIsCook())
+                        .hasTool(cleaningOrderOptional.get().getHasTool())
+                        .hasAnimal(cleaningOrderOptional.get().getHasAnimal())
+                        .serviceCleaningHourId(cleaningOrderOptional.get().getServiceCleaningHourId())
+                        .address(order.getAddress())
+                        .build()
+                );            }
         }
-        return cleaningOrders;
+        return orderDetailDtoList;
 
     }
 
 
-    public List<CleaningOrder> getListCleaningOrder() {
+    public List<OrderDetailDto> getListCleaningOrder() {
         List<Order> orders = orderCRUD.findByCleanerId(null);
-        List<CleaningOrder> cleaningOrders = new ArrayList<>();
+        List<OrderDetailDto> orderDetailDtoList = new ArrayList<>();
         for (Order order : orders) {
             Optional<CleaningOrder> cleaningOrderOptional = cleaningOrderCRUD.findByOrderIdAndStatus(order.getId(), "pending");
             if (cleaningOrderOptional.isPresent()) {
-                cleaningOrders.add(cleaningOrderOptional.get());
+                orderDetailDtoList.add(OrderDetailDto.builder()
+                                .orderId(order.getId())
+                                .totalPrice(cleaningOrderOptional.get().getTotalPrice())
+                                .deposit(cleaningOrderOptional.get().getDeposit())
+                                .status(order.getStatus())
+                                .startTime(cleaningOrderOptional.get().getStartTime())
+                                .note(cleaningOrderOptional.get().getNote())
+                                .isCleaningOther(cleaningOrderOptional.get().getIsCleaningOther())
+                                .isCook(cleaningOrderOptional.get().getIsCook())
+                                .hasTool(cleaningOrderOptional.get().getHasTool())
+                                .hasAnimal(cleaningOrderOptional.get().getHasAnimal())
+                                .serviceCleaningHourId(cleaningOrderOptional.get().getServiceCleaningHourId())
+                                .address(order.getAddress())
+                        .build()
+                );
             }
         }
-        return cleaningOrders;
+        return orderDetailDtoList;
     }
 
     public String apply(int cleanId, int orderId) {
