@@ -4,6 +4,7 @@ import hvnh.delitask_serverapi.dto.request.OrderDto;
 import hvnh.delitask_serverapi.dto.response.OrderDetailDto;
 import hvnh.delitask_serverapi.entity.CleaningOrder;
 import hvnh.delitask_serverapi.entity.Order;
+import hvnh.delitask_serverapi.entity.User;
 import hvnh.delitask_serverapi.repository.CleaningOrderCRUD;
 import hvnh.delitask_serverapi.repository.OrderCRUD;
 import hvnh.delitask_serverapi.repository.ServiceCleaningHourCRUD;
@@ -63,6 +64,22 @@ public class OrderService {
                 .build());
         return order.getId();
     }
+
+
+    public Object getListCleaningOrderReceived(String username) {
+        User user = usersCRUD.findByUsername(username);
+        List<Order> orders = orderCRUD.findByCleanerId(user.getId());
+        List<CleaningOrder> cleaningOrders = new ArrayList<>();
+        for (Order order : orders) {
+            Optional<CleaningOrder> cleaningOrderOptional = cleaningOrderCRUD.findByOrderIdAndStatus(order.getId(), "pending");
+            if (cleaningOrderOptional.isPresent()) {
+                cleaningOrders.add(cleaningOrderOptional.get());
+            }
+        }
+        return cleaningOrders;
+
+    }
+
 
     public List<CleaningOrder> getListCleaningOrder() {
         List<Order> orders = orderCRUD.findByCleanerId(null);
