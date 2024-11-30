@@ -2,13 +2,11 @@ package hvnh.delitask_serverapi.service;
 
 import hvnh.delitask_serverapi.dto.request.OrderDto;
 import hvnh.delitask_serverapi.dto.response.OrderDetailDto;
+import hvnh.delitask_serverapi.entity.Cleaner;
 import hvnh.delitask_serverapi.entity.CleaningOrder;
 import hvnh.delitask_serverapi.entity.Order;
 import hvnh.delitask_serverapi.entity.User;
-import hvnh.delitask_serverapi.repository.CleaningOrderCRUD;
-import hvnh.delitask_serverapi.repository.OrderCRUD;
-import hvnh.delitask_serverapi.repository.ServiceCleaningHourCRUD;
-import hvnh.delitask_serverapi.repository.UsersCRUD;
+import hvnh.delitask_serverapi.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,8 @@ public class OrderService {
     @Autowired
     CleaningOrderCRUD cleaningOrderCRUD;
 
+    @Autowired
+    CleanerCRUD cleanerCRUD;
     public int countOrder(String username) {
         return orderCRUD.countByCustomerId(usersCRUD.findByUsername(username).getId());
     }
@@ -68,7 +68,8 @@ public class OrderService {
 
     public Object getListCleaningOrderReceived(String username) {
         User user = usersCRUD.findByUsername(username);
-        List<Order> orders = orderCRUD.findByCleanerId(user.getId());
+        Optional<Cleaner> cleanerOpt = cleanerCRUD.findByUserId(user.getId());
+        List<Order> orders = orderCRUD.findByCleanerId(cleanerOpt.get().getId());
         List<CleaningOrder> cleaningOrders = new ArrayList<>();
         for (Order order : orders) {
             Optional<CleaningOrder> cleaningOrderOptional = cleaningOrderCRUD.findByOrderIdAndStatus(order.getId(), "pending");
